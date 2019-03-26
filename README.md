@@ -1,4 +1,4 @@
-﻿# UserScript: Rower Mevo UX
+# UserScript: Rower Mevo UX
 
 Poprawki UX dla witryny Roweru Mevo.
 
@@ -11,6 +11,8 @@ Instalacja
 Sposób użycia
 -------------
 
+### Pełny ekran ###
+
 Żeby przejść w full-screen wpisz/wejdź na adres:
 https://rowermevo.pl/mapa-stacji/#full
 
@@ -19,8 +21,8 @@ https://rowermevo.pl/mapa-stacji/#ful
 
 Może potem zrobię GUI ;-).
 
-<!--
+### Wygląd mapy ###
+
+Niezależnie od powyższego mapa jest wzbogacana o liczbę dostępnych rowerów (liczba w nawiasie). Liczbę widać w niebieskich markerach.
 
 <img src="https://raw.githubusercontent.com/Eccenux/UserScript-better-mevo-UX/master/screen.png" alt="Screen">
-
--->
