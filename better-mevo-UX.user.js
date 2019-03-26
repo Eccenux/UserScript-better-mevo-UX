@@ -1,8 +1,8 @@
 ﻿// ==UserScript==
 // @name         Rower Mevo UX
 // @namespace    pl.enux.rowermevo
-// @version      0.0.3
-// @description  [0.0.3] Poprawki UX dla witryny Roweru Mevo.
+// @version      0.0.4
+// @description  [0.0.4] Poprawki UX dla witryny Roweru Mevo.
 // @author       Eccenux
 // @match        https://rowermevo.pl/*
 // @grant        GM_addStyle
@@ -77,10 +77,23 @@
 		markerCluster.repaint();
 	}
 
+	/**
+	 * Hash sensitive control/enhancement.
+	 */
+    function hashSpecific() {
+        if (location.hash.startsWith('#full')) {
+            fullscreen();
+        }
+    }
+
+	// path sensitive enhancement
 	if (location.pathname == '/mapa-stacji/') {
 		betterCluster();
 	}
-	if (location.hash.startsWith('#full')) {
-		fullscreen();
-	}
+
+	// hash
+    hashSpecific();
+    window.addEventListener("hashchange", ()=>{
+        hashSpecific();
+    }, false);
 })();
