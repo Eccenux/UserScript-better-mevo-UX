@@ -1,8 +1,8 @@
 ﻿// ==UserScript==
 // @name         Rower Mevo UX
 // @namespace    pl.enux.rowermevo
-// @version      0.0.4
-// @description  [0.0.4] Poprawki UX dla witryny Roweru Mevo.
+// @version      0.0.5
+// @description  [0.0.5] Poprawki UX dla witryny Roweru Mevo.
 // @author       Eccenux
 // @match        https://rowermevo.pl/*
 // @grant        GM_addStyle
@@ -23,6 +23,8 @@
 	}
 	addCss();
 
+	var inFullscreen = false;
+
 	/**
 	 * Go full-screen.
 	 */
@@ -30,6 +32,7 @@
 		if (typeof map !== 'object') {
 			return;
 		}
+		inFullscreen = true;
 
 		//
 		// full-screen (właściwie to full-window)
@@ -39,6 +42,25 @@
 		//
 		// włączenie przesuwania jednym palcem (lub po kliknięciu myszką)
 		map.setOptions({gestureHandling:'greedy'});
+	}
+
+	/**
+	 * Revert full-screen changes.
+	 */
+	function revertFullscreen() {
+		if (typeof map !== 'object' || !inFullscreen) {
+			return;
+		}
+		inFullscreen = false;
+
+		//
+		// full-screen (właściwie to full-window)
+		jQuery('header,footer,.mapWidget,.fePanel,main>.clear').show();
+		jQuery('#map').css('height', '80vh');
+
+		//
+		// włączenie przesuwania jednym palcem (lub po kliknięciu myszką)
+		map.setOptions({gestureHandling:'auto'});
 	}
 
 	/**
@@ -83,17 +105,19 @@
     function hashSpecific() {
         if (location.hash.startsWith('#full')) {
             fullscreen();
-        }
+        } else {
+			revertFullscreen();
+		}
     }
 
 	// path sensitive enhancement
 	if (location.pathname == '/mapa-stacji/') {
 		betterCluster();
-	}
 
-	// hash
-    hashSpecific();
-    window.addEventListener("hashchange", ()=>{
-        hashSpecific();
-    }, false);
+		// hash
+		hashSpecific();
+		window.addEventListener("hashchange", ()=>{
+			hashSpecific();
+		}, false);
+	}
 })();
