@@ -23,8 +23,14 @@
 	}
 	addCss();
 
-
+	/**
+	 * Go full-screen.
+	 */
 	function fullscreen() {
+		if (typeof map !== 'object') {
+			return;
+		}
+
 		//
 		// full-screen (właściwie to full-window)
 		jQuery('header,footer,.mapWidget,.fePanel,main>.clear').hide();
@@ -35,7 +41,13 @@
 		map.setOptions({gestureHandling:'greedy'});
 	}
 
+	/**
+	 * Better clustering of markers.
+	 */
 	function betterCluster() {
+		if (typeof markerCluster !== 'object') {
+			return;
+		}
 		//
 		// więcej szczegółów
 		markerCluster.setMaxZoom(13);
@@ -64,7 +76,7 @@
 	if (location.pathname == '/mapa-stacji/') {
 		betterCluster();
 	}
-	if (location.hash.startsWith('#full') {
+	if (location.hash.startsWith('#full')) {
 		fullscreen();
 	}
 })();
