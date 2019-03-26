@@ -1,8 +1,8 @@
 ﻿// ==UserScript==
 // @name         Rower Mevo UX
 // @namespace    pl.enux.rowermevo
-// @version      0.0.2
-// @description  [0.0.2] Poprawki UX dla witryny Roweru Mevo.
+// @version      0.0.3
+// @description  [0.0.3] Poprawki UX dla witryny Roweru Mevo.
 // @author       Eccenux
 // @match        https://rowermevo.pl/*
 // @grant        GM_addStyle
@@ -12,7 +12,7 @@
 
 (function() {
 	'use strict';
-	
+
 	/**
 		Add CSS.
 	*/
@@ -46,8 +46,12 @@
 	 */
 	function betterCluster() {
 		if (typeof markerCluster !== 'object') {
+			console.warn('[RMUX] markerCluster not defined', markerCluster);
+            setTimeout(()=>{betterCluster()}, 1000);
 			return;
 		}
+		console.log('[RMUX] markerCluster ready');
+
 		//
 		// więcej szczegółów
 		markerCluster.setMaxZoom(13);
@@ -64,7 +68,7 @@
 					sum += marker.bikesCount;
 				}
 			});
-			//console.log('Calculator', {markers, numStyles, count, sum});
+			//console.log('[RMUX] Calculator', {markers, numStyles, count, sum});
 			return {
 				text: `${count}(${sum})`,
 				index: 1
