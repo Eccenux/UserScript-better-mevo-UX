@@ -58,6 +58,7 @@
 			return;
 		}
 		inFullscreen = true;
+		toggleState('full');
 
 		//
 		// full-screen (właściwie to full-window)
@@ -77,6 +78,7 @@
 			return;
 		}
 		inFullscreen = false;
+		toggleState('mini');
 
 		//
 		// full-screen (właściwie to full-window)
@@ -123,7 +125,7 @@
 		});
 		markerCluster.repaint();
 	}
-	
+
 	/**
 	 * Add controls (GUI).
 	 */
@@ -140,22 +142,26 @@
 		`;
 		container.innerHTML = html;
 		document.querySelector('.fixedPanel').appendChild(container);
+	}
 
-		// initial state
+	/**
+	 * State change.
+	 * @param {String} state 
+	 */
+	function toggleState(state) {
+		var container = document.querySelector('.nux-ux-controls');
+		if (!container) {
+			return;
+		}
 		var mini = container.querySelector('.mini');
 		var full = container.querySelector('.full');
-		full.style.display = 'block';
-		mini.style.display = 'none';
-
-		// behaviour
-		jQuery('.nux-ux-controls .full a').click(function(){
-			full.style.display = 'none';
-			mini.style.display = 'block';
-		});
-		jQuery('.nux-ux-controls .mini a').click(function(){
+		if (state === 'mini') {
 			full.style.display = 'block';
 			mini.style.display = 'none';
-		});
+		} else {
+			full.style.display = 'none';
+			mini.style.display = 'block';
+		}
 	}
 
 	/**
@@ -173,6 +179,7 @@
 	if (location.pathname == '/mapa-stacji/') {
 		betterCluster();
 		addControls();
+		toggleState(inFullscreen ? 'full' : 'mini');
 
 		// hash
 		hashSpecific();
