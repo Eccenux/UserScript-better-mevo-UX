@@ -13,13 +13,10 @@ Sposób użycia
 
 ### Pełny ekran ###
 
-Żeby przejść w full-screen wpisz/wejdź na adres:
+W dolnym rogu mapy dodany jest przycisk do powiększania/zmniejszania.
+
+Żeby otworzyć mapę od razu w full-screen wejdź na adres:
 https://rowermevo.pl/mapa-stacji/#full
-
-Wyjście przez wpisanie innego adresu. Wystarczy skasować jedną literkę ;-).
-https://rowermevo.pl/mapa-stacji/#ful
-
-Może potem zrobię GUI ;-).
 
 ### Wygląd mapy ###
 
