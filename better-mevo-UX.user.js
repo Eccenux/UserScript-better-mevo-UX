@@ -1,8 +1,8 @@
 ﻿// ==UserScript==
 // @name         Rower Mevo UX
 // @namespace    pl.enux.rowermevo
-// @version      0.1.2
-// @description  [0.1.2] Poprawki UX dla witryny Roweru Mevo. Ikony są autorstwa Tunghsiao Liu, CN.
+// @version      0.1.3
+// @description  [0.1.3] Poprawki UX dla witryny Roweru Mevo. Ikony są autorstwa Tunghsiao Liu, CN.
 // @author       Eccenux
 // @match        https://rowermevo.pl/*
 // @grant        GM_addStyle
@@ -113,7 +113,7 @@
 			var count = markers.length;
 			var sum = 0;
 			markers.forEach(marker => {
-				if (marker.bikesCount) {
+				if (marker.bikesCount > 0) {
 					sum += marker.bikesCount;
 				}
 			});
