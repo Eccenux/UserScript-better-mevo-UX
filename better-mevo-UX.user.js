@@ -63,11 +63,13 @@
 		//
 		// full-screen (właściwie to full-window)
 		jQuery('header,footer,.mapWidget,.fePanel,main>.clear').hide();
-		jQuery('#map').css('height', '100vh');
+		jQuery('#map-osm').css('max-height', '100vh');
+		jQuery('#map-osm .ol-viewport').css('height', '100vh');
+		mapOsm.updateSize()
 
 		//
 		// włączenie przesuwania jednym palcem (lub po kliknięciu myszką)
-		map.setOptions({gestureHandling:'greedy'});
+		//map.setOptions({gestureHandling:'greedy'});
 	}
 
 	/**
@@ -83,11 +85,13 @@
 		//
 		// full-screen (właściwie to full-window)
 		jQuery('header,footer,.mapWidget,.fePanel,main>.clear').show();
-		jQuery('#map').css('height', '80vh');
+		jQuery('#map-osm').css('max-height', '80vh');
+		jQuery('#map-osm .ol-viewport').css('height', '100%');
+		mapOsm.updateSize()
 
 		//
 		// włączenie przesuwania jednym palcem (lub po kliknięciu myszką)
-		map.setOptions({gestureHandling:'auto'});
+		//map.setOptions({gestureHandling:'auto'});
 	}
 
 	/**
@@ -146,7 +150,7 @@
 
 	/**
 	 * State change.
-	 * @param {String} state 
+	 * @param {String} state
 	 */
 	function toggleState(state) {
 		var container = document.querySelector('.nux-ux-controls');
@@ -177,7 +181,7 @@
 
 	// path sensitive enhancement
 	if (location.pathname == '/mapa-stacji/') {
-		betterCluster();
+		//betterCluster();
 		addControls();
 		toggleState(inFullscreen ? 'full' : 'mini');
 
