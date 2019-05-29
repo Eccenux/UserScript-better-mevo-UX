@@ -97,37 +97,53 @@
 	/**
 	 * Better clustering of markers.
 	 */
+	var maxWaitBetterCluster = 3;
 	function betterCluster() {
-		if (typeof markerCluster !== 'object') {
-			console.warn('[RMUX] markerCluster not defined', markerCluster);
-            setTimeout(()=>{betterCluster()}, 1000);
+		if (typeof clusters !== 'object') {
+			maxWaitBetterCluster--;
+			console.warn('[RMUX] clusters not defined', clusters);
+			if (maxWaitBetterCluster > 0) {
+				setTimeout(()=>{betterCluster()}, 1000);
+			}
 			return;
 		}
-		console.log('[RMUX] markerCluster ready');
+		console.log('[RMUX] clusters ready');
 
-		//
-		// więcej szczegółów
-		markerCluster.setMaxZoom(13);
-		//markerCluster.repaint();
-
-		//
-		// lepszy cluster
-		markerCluster.setCalculator(function (markers, numStyles) {
-			var index = 0;
-			var count = markers.length;
-			var sum = 0;
-			markers.forEach(marker => {
-				if (marker.bikesCount > 0) {
-					sum += marker.bikesCount;
+		var styleCache = {};
+		clusters.setStyle(function(feature) {
+			var features = feature.get('features');
+			var stations = features.length;
+			
+			// all bikes sum
+			var allBikes = 0;
+			features.forEach(feature => {
+				var bikesCount = feature.get('nextbike').bikes - feature.get('nextbike').booked_bikes;
+				if (bikesCount > 0) {
+					allBikes += bikesCount;
 				}
 			});
-			//console.log('[RMUX] Calculator', {markers, numStyles, count, sum});
-			return {
-				text: `${count}(${sum})`,
-				index: 1
-			};
+			//size = allBikes;
+			//size = `${allBikes}@${stations}`;
+			size = `${allBikes}\n@${stations}`;
+			
+			var style = styleCache[size];
+			if (!style) {
+				style = new ol.style.Style({
+					image: new ol.style.Icon({
+						anchor: [0.5, 0.5],
+						src: '/wp-content/themes/okitheme/assets/img/cluster.png'
+					}),
+					text: new ol.style.Text({
+						text: size.toString(),
+						fill: new ol.style.Fill({
+							color: '#fff'
+						})
+					})
+				});
+				styleCache[size] = style;
+			}
+			return style;
 		});
-		markerCluster.repaint();
 	}
 
 	/**
